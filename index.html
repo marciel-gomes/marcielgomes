@@ -1290,7 +1290,6 @@
         </p>
         <div class="hero-actions">
           <a class="button button-primary" href="#experiencia">Explorar experiência <span aria-hidden="true">↘</span></a>
-          <a class="button" href="./samples/MarcielGomes_DE_112026_pt.pdf" target="_blank" rel="noopener noreferrer">Abrir currículo em PDF <span aria-hidden="true">↗</span></a>
           <a class="button" href="mailto:mmmarciel@gmail.com">Entrar em contato</a>
         </div>
       </div>
@@ -1663,7 +1662,6 @@
             <a class="button button-primary" href="mailto:mmmarciel@gmail.com">Enviar e-mail <span aria-hidden="true">↗</span></a>
             <a class="button" href="https://wa.me/5516981417059" target="_blank" rel="noopener noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
             <a class="button" href="https://www.linkedin.com/in/marcielgomes/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
-            <a class="button" href="./samples/MarcielGomes_DE_112026_pt.pdf" target="_blank" rel="noopener noreferrer">Currículo PDF <span aria-hidden="true">↗</span></a>
           </div>
         </div>
         <footer>
@@ -1699,7 +1697,6 @@
         "plataformas confiáveis, escaláveis e eficientes": "reliable, scalable, and efficient platforms",
         "Mais de 7 anos de experiência conectando engenharia, cloud e visão analítica — de pipelines financeiros críticos a plataformas globais de dados de consumidores.": "Over 7 years of experience connecting engineering, cloud, and analytical thinking—from mission-critical financial pipelines to global consumer data platforms.",
         "Explorar experiência": "Explore my experience",
-        "Abrir currículo em PDF": "Open résumé PDF",
         "Entrar em contato": "Get in touch",
         "Resumo de resultados": "Results at a glance",
         "Impacto em números": "Impact in numbers",
@@ -1815,7 +1812,6 @@
         "significativo com dados.": "meaningful with data.",
         "Disponível para conexões e conversas profissionais.": "Open to professional connections and conversations.",
         "Enviar e-mail": "Email me",
-        "Currículo PDF": "Résumé PDF",
         "Feito para a web.": "Made for the web.",
         "Voltar ao início ↑": "Back to top ↑"
       };
@@ -1878,11 +1874,6 @@
         });
         document.querySelectorAll(".awards").forEach((awards) => {
           awards.setAttribute("aria-label", isEnglish ? "Recognition" : "Reconhecimentos");
-        });
-        document.querySelectorAll('a[href$="_pt.pdf"], a[href$="_en.pdf"]').forEach((link) => {
-          link.href = isEnglish
-            ? "./samples/MarcielGomes_DE_112026_en.pdf"
-            : "./samples/MarcielGomes_DE_112026_pt.pdf";
         });
         languageButton.textContent = isEnglish ? "PT" : "EN";
         languageButton.setAttribute("aria-label", isEnglish ? "Mudar para português" : "Switch to English");

@@ -5,8 +5,7 @@ Este repositório contém o currículo interativo bilíngue de Marciel Alberto G
 ## Conteúdo
 
 - `index.html` — página principal, com estilos e interações incluídos no próprio arquivo.
-- `samples/MarcielGomes_DE_112026_pt.pdf` — currículo em português.
-- `samples/MarcielGomes_DE_112026_en.pdf` — currículo em inglês.
+- `/samples/` — arquivos PDF locais, ignorados pelo Git e não publicados com a página.
 
 ## Recursos
 
@@ -14,10 +13,10 @@ Este repositório contém o currículo interativo bilíngue de Marciel Alberto G
 - Filtros para explorar as competências por categoria.
 - Alternância entre temas claro e escuro, com preferência salva no navegador.
 - Experiências profissionais com detalhes expansíveis.
-- Links para contato, LinkedIn, WhatsApp e currículo em PDF.
-- Botão para alternar o idioma da página, com preferência salva no navegador e link para o PDF no idioma selecionado.
+- Links para contato, LinkedIn e WhatsApp.
+- Botão para alternar o idioma da página, com preferência salva no navegador.
 - Estilos específicos para impressão.
 
 ## Publicação no GitHub Pages
 
-Para publicar, envie este repositório ao GitHub e, nas configurações do repositório, habilite o GitHub Pages usando a branch e a pasta que contêm `index.html`. Mantenha os dois PDFs nos caminhos indicados acima para que os links para o currículo continuem funcionando em ambos os idiomas.
+Para publicar, envie este repositório ao GitHub e, nas configurações do repositório, habilite o GitHub Pages usando a branch e a pasta que contêm `index.html`. Os arquivos em `/samples/` são mantidos apenas localmente e não são necessários para publicar a página.
