@@ -23,6 +23,8 @@
       --accent-strong: #a7df48;
       --accent-ink: #17220e;
       --chip: rgba(195, 245, 106, .09);
+      --background-glow: rgba(128, 178, 76, .15);
+      --background-glow-soft: rgba(195, 245, 106, .07);
       --shadow: 0 24px 80px rgba(0, 0, 0, .24);
       --radius: 22px;
       --content: 1120px;
@@ -41,6 +43,8 @@
       --accent-strong: #36670c;
       --accent-ink: #fff;
       --chip: rgba(70, 127, 20, .09);
+      --background-glow: rgba(70, 127, 20, .10);
+      --background-glow-soft: rgba(70, 127, 20, .045);
       --shadow: 0 24px 80px rgba(39, 62, 30, .09);
     }
 
@@ -56,15 +60,28 @@
     }
 
     body {
+      position: relative;
+      isolation: isolate;
       margin: 0;
-      background:
-        radial-gradient(ellipse at 87% 2%, rgba(128, 178, 76, .13), transparent 32rem),
-        var(--bg);
+      background: var(--bg);
       color: var(--text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 15px;
       line-height: 1.65;
       transition: background-color .25s ease, color .25s ease;
+    }
+
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: -18%;
+      background:
+        radial-gradient(ellipse at 22% 25%, var(--background-glow), transparent 42%),
+        radial-gradient(ellipse at 78% 72%, var(--background-glow-soft), transparent 40%);
+      content: "";
+      pointer-events: none;
+      animation: gradient-drift 24s ease-in-out infinite alternate;
+      will-change: transform;
     }
 
     a {
@@ -178,6 +195,14 @@
       border-radius: 12px;
       background: var(--surface-soft);
       cursor: pointer;
+    }
+
+    .language-toggle {
+      width: auto;
+      min-width: 42px;
+      padding-inline: 10px;
+      font-size: 11px;
+      font-weight: 750;
     }
 
     .icon-button:hover,
@@ -871,6 +896,16 @@
       }
     }
 
+    @keyframes gradient-drift {
+      from {
+        transform: translate3d(-1.5%, -1%, 0) scale(1);
+      }
+
+      to {
+        transform: translate3d(1.5%, 1%, 0) scale(1.06);
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
@@ -879,6 +914,11 @@
         animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: .01ms !important;
+      }
+
+      body::before {
+        animation: none;
+        will-change: auto;
       }
     }
 
@@ -1139,6 +1179,10 @@
         font-size: 10pt;
       }
 
+      body::before {
+        display: none;
+      }
+
       .topbar,
       .hero-actions,
       .skill-filters,
@@ -1205,11 +1249,11 @@
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <a class="skip-link" id="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
   <header class="topbar">
     <div class="topbar-inner">
-      <a class="brand" href="#inicio" aria-label="Marciel Gomes — início">
+      <a class="brand" id="brand" href="#inicio" aria-label="Marciel Gomes — início">
         <span class="brand-mark" aria-hidden="true">MG</span>
         <span>Marciel Gomes</span>
       </a>
@@ -1223,6 +1267,7 @@
       </nav>
 
       <div class="top-actions">
+        <button class="icon-button language-toggle" id="language-toggle" type="button" aria-label="Switch to English" title="Switch to English">EN</button>
         <button class="icon-button" id="theme-toggle" type="button" aria-label="Ativar tema claro" title="Alternar tema">
           <span id="theme-icon" aria-hidden="true">☼</span>
         </button>
@@ -1240,9 +1285,8 @@
         <h1 id="hero-title">Marciel Alberto <span>Gomes.</span></h1>
         <p class="hero-role">Engenheiro de Dados Sênior <span aria-hidden="true">/</span> Analytics Engineer</p>
         <p class="hero-copy">
-          Transformo desafios de dados em <strong>plataformas confiáveis, escaláveis e eficientes</strong>.
-          Mais de 7 anos de experiência conectando engenharia, cloud e visão analítica — de pipelines
-          financeiros críticos a plataformas globais de dados de consumidores.
+          <span>Transformo desafios de dados em</span> <strong>plataformas confiáveis, escaláveis e eficientes</strong>.
+          <span>Mais de 7 anos de experiência conectando engenharia, cloud e visão analítica — de pipelines financeiros críticos a plataformas globais de dados de consumidores.</span>
         </p>
         <div class="hero-actions">
           <a class="button button-primary" href="#experiencia">Explorar experiência <span aria-hidden="true">↘</span></a>
@@ -1251,7 +1295,7 @@
         </div>
       </div>
 
-      <aside class="hero-card reveal" aria-label="Resumo de resultados">
+      <aside class="hero-card reveal" id="hero-card" aria-label="Resumo de resultados">
         <p class="card-label">Impacto em números</p>
         <div class="metric">
           <strong>50%</strong>
@@ -1307,7 +1351,7 @@
         </div>
 
         <div class="skills-layout">
-          <div class="skill-filters" role="group" aria-label="Filtrar competências por categoria">
+          <div class="skill-filters" id="skill-filters" role="group" aria-label="Filtrar competências por categoria">
             <button class="filter-button" type="button" data-filter="all" aria-pressed="true">Todas <span class="filter-count">43</span></button>
             <button class="filter-button" type="button" data-filter="engineering" aria-pressed="false">Engenharia <span class="filter-count">10</span></button>
             <button class="filter-button" type="button" data-filter="cloud" aria-pressed="false">Cloud <span class="filter-count">10</span></button>
@@ -1423,6 +1467,7 @@
                   <li>Atuação com AWS Glue, Lambda, IAM, Athena e Step Functions.</li>
                   <li>Elevação do score de saúde e conformidade do ambiente de 89% para 95% em dois meses, com refatorações e correções estruturais.</li>
                   <li>Aplicação de padrões de acesso, gerenciamento de identidades e processamento eficiente de dados financeiros.</li>
+                  <li>Desenho e manutenção de pipelines de produção e camadas semânticas com modelagem dimensional, metadados e contexto de negócio para agentes de IA e analytics em linguagem natural.</li>
                 </ul>
               </details>
             </div>
@@ -1634,16 +1679,240 @@
       const root = document.documentElement;
       const themeButton = document.getElementById("theme-toggle");
       const themeIcon = document.getElementById("theme-icon");
+      const languageButton = document.getElementById("language-toggle");
       const menuButton = document.getElementById("menu-toggle");
       const navigation = document.getElementById("navigation");
       const year = document.getElementById("year");
       const filterButtons = document.querySelectorAll("[data-filter]");
       const skillCards = document.querySelectorAll(".skill-card[data-category]");
+      const englishText = {
+        "Pular para o conteúdo": "Skip to content",
+        "Navegação principal": "Main navigation",
+        "Sobre": "About",
+        "Competências": "Skills",
+        "Experiência": "Experience",
+        "Formação": "Education",
+        "Contato": "Contact",
+        "Engenharia de dados · Americana, SP": "Data Engineering · Americana, Brazil",
+        "Engenheiro de Dados Sênior": "Senior Data Engineer",
+        "Transformo desafios de dados em": "I turn data challenges into",
+        "plataformas confiáveis, escaláveis e eficientes": "reliable, scalable, and efficient platforms",
+        "Mais de 7 anos de experiência conectando engenharia, cloud e visão analítica — de pipelines financeiros críticos a plataformas globais de dados de consumidores.": "Over 7 years of experience connecting engineering, cloud, and analytical thinking—from mission-critical financial pipelines to global consumer data platforms.",
+        "Explorar experiência": "Explore my experience",
+        "Abrir currículo em PDF": "Open résumé PDF",
+        "Entrar em contato": "Get in touch",
+        "Resumo de resultados": "Results at a glance",
+        "Impacto em números": "Impact in numbers",
+        "menos tempo em pipelines críticos de MarTech": "less processing time for critical MarTech pipelines",
+        "países conectados em plataforma global de dados": "countries connected through a global data platform",
+        "score de saúde e conformidade do ambiente": "environment health and compliance score",
+        "01 / Perfil": "01 / Profile",
+        "Dados com propósito e escala.": "Data with purpose and scale.",
+        "Base técnica sólida, liderança colaborativa e foco em resultados que fazem diferença para o negócio.": "A strong technical foundation, collaborative leadership, and a focus on meaningful business outcomes.",
+        "Engenharia ponta a ponta": "End-to-end engineering",
+        "Experiência em projetar, construir e operar ecossistemas de Big Data, da ingestão e arquitetura de pipelines à governança e observabilidade. Atuação em ambientes AWS, Azure, GCP e Databricks.": "Experienced in designing, building, and operating Big Data ecosystems—from ingestion and pipeline architecture to governance and observability—across AWS, Azure, GCP, and Databricks.",
+        "Combinei Engenharia Mecatrônica, Matemática e docência universitária para desenvolver uma abordagem analítica, sistêmica e orientada à resolução de problemas complexos.": "I combine mechatronics engineering, mathematics, and university teaching to bring an analytical, systems-oriented approach to complex problem-solving.",
+        "O que levo para o time": "What I bring to a team",
+        "Otimização de consultas e pipelines com impacto mensurável.": "Query and pipeline optimization with measurable impact.",
+        "Experiência em dados financeiros, CDP e MarTech global.": "Experience across financial data, CDPs, and global MarTech.",
+        "Liderança técnica e mentoria em times multiculturais.": "Technical leadership and mentoring in multicultural teams.",
+        "Governança, documentação e conformidade com a LGPD.": "Governance, documentation, and compliance with Brazil's LGPD.",
+        "02 / Caixa de ferramentas": "02 / Toolkit",
+        "Competências em dados.": "Data engineering skills.",
+        "Explore as áreas para conhecer as tecnologias e práticas presentes no meu trabalho.": "Explore the areas below to see the technologies and practices I use.",
+        "Filtrar competências por categoria": "Filter skills by category",
+        "Todas": "All",
+        "Engenharia": "Engineering",
+        "Linguagens": "Languages",
+        "Plataformas": "Platforms",
+        "Governança & IA": "Governance & AI",
+        "Engenharia & arquitetura": "Engineering & architecture",
+        "Cloud & dados": "Cloud & data",
+        "Linguagens & desempenho": "Languages & performance",
+        "Engenharia de dados": "Data engineering",
+        "Arquitetura end-to-end": "End-to-end architecture",
+        "SQL avançado": "Advanced SQL",
+        "Orquestração & entrega": "Orchestration & delivery",
+        "Governança & MarTech": "Governance & MarTech",
+        "Gestão de consentimento": "Consent management",
+        "IA & produtividade": "AI & productivity",
+        "03 / Trajetória": "03 / Career",
+        "Experiência profissional.": "Professional experience.",
+        "Uma trajetória que une engenharia de dados, educação e liderança técnica. Selecione uma posição para ver mais detalhes.": "A career spanning data engineering, education, and technical leadership. Select a role to see more details.",
+        "Jul 2026": "Jul 2026",
+        "— Atual": "— Present",
+        "Sustentação e otimização de pipelines AWS para Custódia de Ativos, com foco em confiabilidade, conformidade e dados financeiros críticos.": "Supporting and optimizing AWS pipelines for Itaú Unibanco's Asset Custody business, with a focus on reliability, compliance, and critical financial data.",
+        "Ver principais contribuições": "View key contributions",
+        "Atuação com AWS Glue, Lambda, IAM, Athena e Step Functions.": "Worked with AWS Glue, Lambda, IAM, Athena, and Step Functions.",
+        "Elevação do score de saúde e conformidade do ambiente de 89% para 95% em dois meses, com refatorações e correções estruturais.": "Raised the environment health and compliance score from 89% to 95% in two months through refactoring and structural fixes.",
+        "Aplicação de padrões de acesso, gerenciamento de identidades e processamento eficiente de dados financeiros.": "Applied access standards, identity management, and efficient processing for financial data.",
+        "Desenho e manutenção de pipelines de produção e camadas semânticas com modelagem dimensional, metadados e contexto de negócio para agentes de IA e analytics em linguagem natural.": "Designed and maintained production-grade data pipelines and semantic layers using dimensional modeling, rich metadata, and business context to support AI agents and natural-language analytics interfaces.",
+        "Out 2021": "Oct 2021",
+        "— Nov 2025": "— Nov 2025",
+        "Liderança técnica de CDP e engenharia de dados de consumidores em escala global, com operação em mais de 40 países.": "Technical leadership for a consumer data platform (CDP) and consumer data engineering at global scale, operating in more than 40 countries.",
+        "Reconhecimentos": "Recognition",
+        "Construção e sustentação de pipelines de ETL/ELT em Treasure Data, consolidando o Identity Graph global para ingestão, unificação e segmentação de audiências.": "Built and maintained ETL/ELT pipelines in Treasure Data, consolidating the global Identity Graph for audience ingestion, unification, and segmentation.",
+        "Implementação de segmentação baseada em interesses e comportamentos, com gestão de consentimento e conformidade com a LGPD.": "Implemented interest- and behavior-based segmentation with consent management and LGPD compliance.",
+        "Redução de 50% no tempo de processamento de pipelines críticos de MarTech por meio de refatoração e otimização de consultas.": "Reduced processing time for critical MarTech pipelines by 50% through code refactoring and query optimization.",
+        "Liderança técnica, mentoria da equipe e implantação de PI Planning para melhorar previsibilidade e alinhamento entre stakeholders globais.": "Provided technical leadership and team mentoring, and introduced PI Planning to improve delivery predictability and alignment across global stakeholders.",
+        "Estruturação de documentação e base de conhecimento técnico do CDP no Confluence.": "Built the CDP's technical documentation and knowledge base in Confluence.",
+        "Mai 2019": "May 2019",
+        "— Set 2021": "— Sep 2021",
+        "Engenheiro de Dados Pleno": "Mid-level Data Engineer",
+        "PowerOfData · Projetos B3 e Hypera Pharma": "PowerOfData · B3 and Hypera Pharma projects",
+        "Engenharia e modelagem de dados financeiros para a B3, além de implantação de Data Lake em AWS para a Hypera Pharma.": "Engineered and modeled financial data for B3 and implemented an AWS data lake for Hypera Pharma.",
+        "Construção de books de variáveis e camadas de stage para modelagem analítica e testes de mercado com dados da B3, usando Hive, Impala e Spark.": "Built feature books and staging layers for analytical modeling and market testing with B3 data using Hive, Impala, and Spark.",
+        "Desenvolvimento de pipelines ETL para Data Lake escalável em AWS com S3, EMR, Airflow, Lambda e Athena.": "Developed ETL pipelines for a scalable AWS data lake using S3, EMR, Airflow, Lambda, and Athena.",
+        "Automação de ingestão de dados com Python e SQL em ambiente on-premises.": "Automated data ingestion with Python and SQL in on-premises environments.",
+        "Contribuição para documentação técnica, rastreabilidade e onboarding de times de dados.": "Contributed to technical documentation, data traceability, and onboarding for data teams.",
+        "Jan 2017": "Jan 2017",
+        "— Mai 2019": "— May 2019",
+        "Professor Universitário": "University Lecturer",
+        "Docência em Engenharia Mecânica, conectando fundamentos matemáticos e físicos a projetos e aplicações práticas de engenharia.": "Taught in the Mechanical Engineering program, connecting mathematical and physical foundations with hands-on engineering projects and applications.",
+        "Disciplinas: Dinâmica das Máquinas, Mecanismos, Sistemas Digitais, Processos de Fabricação e Desenho Técnico.": "Courses: Machine Dynamics, Mechanisms, Digital Systems, Manufacturing Processes, and Technical Drawing.",
+        "Aplicação de metodologias de aprendizagem por projetos e orientação de protótipos e sistemas mecânicos.": "Applied project-based learning and supervised mechanical prototypes and systems.",
+        "Ensino de lógica booleana, automação e controle, além de mentoria e desenvolvimento de capacidade analítica.": "Taught Boolean logic, automation, and control, while mentoring students and developing their analytical skills.",
+        "Ago 2010": "Aug 2010",
+        "— Dez 2014": "— Dec 2014",
+        "Docência em Engenharia Mecatrônica, com ênfase em modelagem de sistemas dinâmicos, controle e simulação computacional.": "Taught in the Mechatronics Engineering program, focusing on dynamic systems modeling, control, and computational simulation.",
+        "Disciplinas: Equações Diferenciais Ordinárias, Modelagem de Sistemas Dinâmicos e Controle.": "Courses: Ordinary Differential Equations, Dynamic Systems Modeling, and Control.",
+        "Orientação de projetos com representação de estados e funções de transferência.": "Supervised projects using state-space representations and transfer functions.",
+        "Aplicação de conceitos de feedback, estabilidade e resposta em frequência a sistemas físicos.": "Applied feedback, stability, and frequency-response concepts to physical systems.",
+        "04 / Base acadêmica": "04 / Education",
+        "Formação.": "Education.",
+        "Uma formação multidisciplinar em engenharia, matemática e inteligência artificial.": "A multidisciplinary background in engineering, mathematics, and artificial intelligence.",
+        "Mestrado em Engenharia Mecatrônica": "MSc in Mechatronics Engineering",
+        "Set 2009": "Sep 2009",
+        "Pesquisa em inteligência artificial aplicada à robótica, com redes neurais artificiais e algoritmos genéticos em MATLAB.": "Research in AI applied to robotics, focusing on artificial neural networks and genetic algorithms using MATLAB.",
+        "Bacharelado em Engenharia Mecatrônica · 2ª formação": "BSc in Mechatronics Engineering · Second degree",
+        "Dez 2021": "Dec 2021",
+        "Integração de sistemas mecatrônicos, lógica de programação e arquitetura de controle para automação.": "Mechatronic systems integration, programming logic, and control architecture for automation.",
+        "Licenciatura em Matemática": "BSc in Mathematics",
+        "Dez 2006": "Dec 2006",
+        "Rigor analítico e pensamento lógico para tratamento científico de dados e construção de modelos matemáticos.": "Analytical rigor and logical thinking for scientific data analysis and mathematical modeling.",
+        "Técnico em Mecatrônica": "Mechatronics Technician",
+        "Ago 2005": "Aug 2005",
+        "Fundamentos de automação industrial, sistemas de controle, robótica e eletrônica aplicada.": "Foundations in industrial automation, control systems, robotics, and applied electronics.",
+        "05 / Como trabalho": "05 / How I work",
+        "Idiomas & colaboração.": "Languages & collaboration.",
+        "Rigor analítico, trabalho em equipe e partilha de conhecimento em ambientes diversos.": "Analytical rigor, teamwork, and knowledge sharing in diverse environments.",
+        "Idiomas": "Languages",
+        "Português": "Portuguese",
+        "Nativo": "Native",
+        "Inglês": "English",
+        "Intermediário / técnico · Upper Intermediate": "Advanced",
+        "Competências interpessoais": "Soft skills",
+        "Liderança técnica": "Technical leadership",
+        "Mentoria": "Mentoring",
+        "Colaboração multicultural": "Cross-cultural collaboration",
+        "Pensamento analítico": "Analytical thinking",
+        "Visão sistêmica": "Systems thinking",
+        "Excelência operacional": "Operational excellence",
+        "Comunicação técnica": "Technical communication",
+        "Resolução de problemas": "Problem-solving",
+        "Vamos conversar?": "Let's connect",
+        "Vamos construir algo": "Let's build something",
+        "significativo com dados.": "meaningful with data.",
+        "Disponível para conexões e conversas profissionais.": "Open to professional connections and conversations.",
+        "Enviar e-mail": "Email me",
+        "Currículo PDF": "Résumé PDF",
+        "Feito para a web.": "Made for the web.",
+        "Voltar ao início ↑": "Back to top ↑"
+      };
+
+      const ariaLabels = {
+        "skip-link": ["Pular para o conteúdo", "Skip to content"],
+        "navigation": ["Navegação principal", "Main navigation"],
+        "brand": ["Marciel Gomes — início", "Marciel Gomes — home"],
+        "hero-card": ["Resumo de resultados", "Results at a glance"],
+        "skill-filters": ["Filtrar competências por categoria", "Filter skills by category"],
+        "menu-toggle": ["Abrir menu", "Open menu"]
+      };
+      const originalTextNodes = new WeakMap();
+
+      function setLanguage(language) {
+        const isEnglish = language === "en";
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        let textNode;
+        while ((textNode = walker.nextNode())) {
+          if (!originalTextNodes.has(textNode)) {
+            originalTextNodes.set(textNode, textNode.nodeValue);
+          }
+          const original = originalTextNodes.get(textNode);
+          const key = original.trim();
+          const translated = isEnglish ? englishText[key] : null;
+          if (translated) {
+            const leading = original.match(/^\s*/)[0];
+            const trailing = original.match(/\s*$/)[0];
+            textNode.nodeValue = `${leading}${translated}${trailing}`;
+          } else {
+            textNode.nodeValue = original;
+          }
+        }
+
+        root.lang = isEnglish ? "en" : "pt-BR";
+        document.title = isEnglish
+          ? "Marciel Alberto Gomes | Data Engineer"
+          : "Marciel Alberto Gomes | Engenheiro de Dados";
+        document.querySelector('meta[name="description"]').content = isEnglish
+          ? "Interactive résumé of Marciel Alberto Gomes, Data and Analytics Engineer specializing in data platforms, cloud, and scalable architecture."
+          : "Currículo interativo de Marciel Alberto Gomes, Engenheiro de Dados e Analytics, especialista em plataformas de dados, cloud e arquitetura escalável.";
+        document.querySelector('meta[property="og:title"]').content = isEnglish
+          ? "Marciel Alberto Gomes — Data Engineer"
+          : "Marciel Alberto Gomes — Engenheiro de Dados";
+        document.querySelector('meta[property="og:description"]').content = isEnglish
+          ? "Over 7 years building data systems at scale. Explore my experience, skills, and impact."
+          : "Mais de 7 anos construindo sistemas de dados em escala. Conheça minha experiência, competências e resultados.";
+        Object.entries(ariaLabels).forEach(([id, labels]) => {
+          document.getElementById(id).setAttribute("aria-label", labels[isEnglish ? 1 : 0]);
+        });
+        themeButton.setAttribute("aria-label", isEnglish
+          ? (root.dataset.theme === "light" ? "Enable dark theme" : "Enable light theme")
+          : (root.dataset.theme === "light" ? "Ativar tema escuro" : "Ativar tema claro"));
+        themeButton.title = isEnglish ? "Toggle theme" : "Alternar tema";
+        menuButton.setAttribute("aria-label", menuButton.getAttribute("aria-expanded") === "true"
+          ? (isEnglish ? "Close menu" : "Fechar menu")
+          : (isEnglish ? "Open menu" : "Abrir menu"));
+        document.querySelectorAll(".experience-details summary").forEach((summary) => {
+          summary.setAttribute("aria-label", isEnglish ? "View key contributions" : "Ver principais contribuições");
+        });
+        document.querySelectorAll(".awards").forEach((awards) => {
+          awards.setAttribute("aria-label", isEnglish ? "Recognition" : "Reconhecimentos");
+        });
+        document.querySelectorAll('a[href$="_pt.pdf"], a[href$="_en.pdf"]').forEach((link) => {
+          link.href = isEnglish
+            ? "./samples/MarcielGomes_DE_112026_en.pdf"
+            : "./samples/MarcielGomes_DE_112026_pt.pdf";
+        });
+        languageButton.textContent = isEnglish ? "PT" : "EN";
+        languageButton.setAttribute("aria-label", isEnglish ? "Mudar para português" : "Switch to English");
+        languageButton.title = isEnglish ? "Mudar para português" : "Switch to English";
+        try {
+          localStorage.setItem("marciel-language", language);
+        } catch (error) {
+          // The selected language remains active for the current page view.
+        }
+      }
+
+      languageButton.addEventListener("click", () => {
+        setLanguage(root.lang === "en" ? "pt-BR" : "en");
+      });
+
+      let savedLanguage = null;
+      try {
+        savedLanguage = localStorage.getItem("marciel-language");
+      } catch (error) {
+        savedLanguage = null;
+      }
+      setLanguage(savedLanguage === "en" ? "en" : "pt-BR");
 
       function setTheme(theme) {
         root.dataset.theme = theme;
         const isLight = theme === "light";
-        themeButton.setAttribute("aria-label", isLight ? "Ativar tema escuro" : "Ativar tema claro");
+        const isEnglish = root.lang === "en";
+        themeButton.setAttribute("aria-label", isLight
+          ? (isEnglish ? "Enable dark theme" : "Ativar tema escuro")
+          : (isEnglish ? "Enable light theme" : "Ativar tema claro"));
         themeIcon.textContent = isLight ? "☾" : "☼";
         document.querySelector('meta[name="theme-color"]').content = isLight ? "#f5f7f2" : "#101713";
       }
@@ -1669,7 +1938,10 @@
       menuButton.addEventListener("click", () => {
         const isOpen = menuButton.getAttribute("aria-expanded") === "true";
         menuButton.setAttribute("aria-expanded", String(!isOpen));
-        menuButton.setAttribute("aria-label", isOpen ? "Abrir menu" : "Fechar menu");
+        const isEnglish = root.lang === "en";
+        menuButton.setAttribute("aria-label", isOpen
+          ? (isEnglish ? "Open menu" : "Abrir menu")
+          : (isEnglish ? "Close menu" : "Fechar menu"));
         navigation.classList.toggle("is-open", !isOpen);
       });
 
@@ -1677,7 +1949,7 @@
         if (event.target.closest("a")) {
           navigation.classList.remove("is-open");
           menuButton.setAttribute("aria-expanded", "false");
-          menuButton.setAttribute("aria-label", "Abrir menu");
+          menuButton.setAttribute("aria-label", root.lang === "en" ? "Open menu" : "Abrir menu");
         }
       });
 
