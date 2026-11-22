@@ -1369,16 +1369,16 @@
       <aside class="hero-card reveal" id="hero-card" aria-label="Resumo de resultados">
         <p class="card-label">Impacto em números</p>
         <div class="metric">
-          <strong>50%</strong>
+          <strong class="counter" data-target="50" data-suffix="%">0%</strong>
           <span>menos tempo em pipelines críticos de MarTech</span>
         </div>
         <div class="metric">
-          <strong>40+</strong>
+          <strong class="counter" data-target="40" data-suffix="+">0+</strong>
           <span>países conectados em plataforma global de dados</span>
         </div>
         <div class="metric">
-          <strong>95%</strong>
-          <span>score de saúde e conformidade do ambiente AWS</span>
+          <strong class="counter" data-target="95" data-suffix="%">0%</strong>
+          <span>score de saúde e conformidade do ambiente</span>
         </div>
       </aside>
     </section>
@@ -1642,6 +1642,7 @@
       </div>
     </section>
 
+    
     <section class="section" id="formacao" aria-labelledby="education-title">
       <div class="container">
         <div class="section-heading">
@@ -2062,6 +2063,40 @@
 
       year.textContent = String(new Date().getFullYear());
     })();
+    // Animação suave dos contadores de impacto
+    const counters = document.querySelectorAll(".counter");
+    counters.forEach((counter) => {
+      const target = Number(counter.dataset.target);
+      const suffix = counter.dataset.suffix || "";
+      const duration = 1400; // duração em milissegundos
+      const startTime = performance.now();
+
+      function updateCounter(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Efeito ease-out (desacelera suavemente no final)
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const currentVal = Math.round(easeOut * target);
+        
+        counter.textContent = `${currentVal}${suffix}`;
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
+        }
+      }
+
+      requestAnimationFrame(updateCounter);
+    });
+    // Contador de anos de experiência
+    const startCareer = new Date("2019-05-01");
+    const now = new Date();
+    const yearsExp = Math.floor((now - startCareer) / (1000 * 60 * 60 * 24 * 365.25));
+
+    // Se você tiver um elemento <span id="exp-years"></span> no texto:
+    const expElement = document.getElementById("exp-years");
+    if (expElement) {
+      expElement.textContent = `${yearsExp}+`;
+    }
   </script>
 </body>
 </html>
