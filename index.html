@@ -402,6 +402,60 @@
       font-size: 11px;
     }
 
+    .key-highlights {
+      padding-block: 0 70px;
+    }
+
+    .highlights-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 18px;
+    }
+
+    .highlights-heading h2 {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 29px);
+      letter-spacing: -.055em;
+      line-height: 1.15;
+    }
+
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .highlight-card {
+      position: relative;
+      min-height: 172px;
+      padding: 24px 26px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 100% 0, rgba(195, 245, 106, .08), transparent 48%),
+        var(--surface);
+    }
+
+    .highlight-card h3 {
+      margin-bottom: 9px;
+      font-size: 16px;
+      letter-spacing: -.035em;
+    }
+
+    .highlight-card p {
+      max-width: 490px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .highlight-card strong {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
     .section {
       padding-block: 70px;
       border-top: 1px solid var(--line);
@@ -1051,6 +1105,23 @@
         padding-block: 53px;
       }
 
+      .key-highlights {
+        padding-block: 0 53px;
+      }
+
+      .highlights-heading {
+        display: block;
+      }
+
+      .highlights-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .highlight-card {
+        min-height: 0;
+        padding: 22px;
+      }
+
       .section-heading {
         display: block;
         margin-bottom: 22px;
@@ -1285,8 +1356,9 @@
         <h1 id="hero-title">Marciel Alberto <span>Gomes.</span></h1>
         <p class="hero-role">Engenheiro de Dados Sênior <span aria-hidden="true">/</span> Analytics Engineer</p>
         <p class="hero-copy">
-          <span>Transformo desafios de dados em</span> <strong>plataformas confiáveis, escaláveis e eficientes</strong>.
-          <span>Mais de 7 anos de experiência conectando engenharia, cloud e visão analítica — de pipelines financeiros críticos a plataformas globais de dados de consumidores.</span>
+          <span>Engenheiro de Dados Sênior e Analytics Engineer com sólida base matemática (USP/UFSCar). Transformo ecossistemas complexos em</span>
+          <strong>plataformas de dados de alta performance, resilientes, governadas e prontas para consumo analítico e agentes de IA</strong>.
+          <span>Histórico comprovado de liderança de pessoas, sistema financeiro de custódia, ecossistema Martech e CDP, incluindo a unificação de dados de consumidores de mais de 40 países.
         </p>
         <div class="hero-actions">
           <a class="button button-primary" href="#experiencia">Explorar experiência <span aria-hidden="true">↘</span></a>
@@ -1306,7 +1378,7 @@
         </div>
         <div class="metric">
           <strong>95%</strong>
-          <span>score de saúde e conformidade do ambiente</span>
+          <span>score de saúde e conformidade do ambiente AWS</span>
         </div>
       </aside>
     </section>
@@ -1323,8 +1395,8 @@
         <div class="about-grid">
           <article class="about-card">
             <h3>Engenharia ponta a ponta</h3>
-            <p>Experiência em projetar, construir e operar ecossistemas de Big Data, da ingestão e arquitetura de pipelines à governança e observabilidade. Atuação em ambientes AWS, Azure, GCP e Databricks.</p>
-            <p>Combinei Engenharia Mecatrônica, Matemática e docência universitária para desenvolver uma abordagem analítica, sistêmica e orientada à resolução de problemas complexos.</p>
+            <p id="profile-engineering">Especialista em arquitetar, construir e otimizar ecossistemas de Big Data e MarTech em escala global (AWS, Azure, GCP e Databricks). Minha atuação vai além da ingestão e modelagem: estruturo camadas semânticas governadas, métricas confiáveis e bases de conhecimento técnico (<em>Single Source of Truth</em>) que aceleram times e alimentam ferramentas de IA com contexto de negócio preciso.</p>
+            <p>A combinação entre Engenharia Mecatrônica, Matemática (USP/UFSCar) e docência universitária sustenta uma abordagem analítica rigorosa, focada em observabilidade, estabilidade e resolução de problemas complexos.</p>
           </article>
           <article class="about-card">
             <h3>O que levo para o time</h3>
@@ -1494,7 +1566,7 @@
                   <li>Implementação de segmentação baseada em interesses e comportamentos, com gestão de consentimento e conformidade com a LGPD.</li>
                   <li>Redução de 50% no tempo de processamento de pipelines críticos de MarTech por meio de refatoração e otimização de consultas.</li>
                   <li>Liderança técnica, mentoria da equipe e implantação de PI Planning para melhorar previsibilidade e alinhamento entre stakeholders globais.</li>
-                  <li>Estruturação de documentação e base de conhecimento técnico do CDP no Confluence.</li>
+                  <li>Estruturação e manutenção da base de conhecimento técnico e tutoriais de uso de ferramentas no Confluence, consolidando a "Single Source of Truth" do CDP e reduzindo o débito de conhecimento da equipe global.</li>
                 </ul>
               </details>
             </div>
@@ -1662,6 +1734,7 @@
             <a class="button button-primary" href="mailto:mmmarciel@gmail.com">Enviar e-mail <span aria-hidden="true">↗</span></a>
             <a class="button" href="https://wa.me/5516981417059" target="_blank" rel="noopener noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
             <a class="button" href="https://www.linkedin.com/in/marcielgomes/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+            <a class="button" id="resume-download" href="./docs/MarcielGomes_DE_112026_pt.pdf" download="MarcielGomes_DE_112026_pt.pdf">Baixar currículo em PDF <span aria-hidden="true">↓</span></a>
           </div>
         </div>
         <footer>
@@ -1693,9 +1766,13 @@
         "Contato": "Contact",
         "Engenharia de dados · Americana, SP": "Data Engineering · Americana, Brazil",
         "Engenheiro de Dados Sênior": "Senior Data Engineer",
-        "Transformo desafios de dados em": "I turn data challenges into",
-        "plataformas confiáveis, escaláveis e eficientes": "reliable, scalable, and efficient platforms",
-        "Mais de 7 anos de experiência conectando engenharia, cloud e visão analítica — de pipelines financeiros críticos a plataformas globais de dados de consumidores.": "Over 7 years of experience connecting engineering, cloud, and analytical thinking—from mission-critical financial pipelines to global consumer data platforms.",
+        "Engenheiro de Dados Sênior e Analytics Engineer com sólida base matemática (USP/UFSCar). Transformo ecossistemas complexos em": "Senior Data Engineer and Analytics Engineer with a strong mathematical foundation (USP/UFSCar). I transform complex ecosystems into",
+        "plataformas de dados de alta performance, resilientes, governadas e prontas para consumo analítico e agentes de IA": "high-performance, resilient, governed data platforms ready for analytics and AI agents",
+        "Histórico comprovado de liderança de pessoas e otimização extrema, incluindo a": "Proven track record of people leadership and extreme optimization, including",
+        "redução de 50% no tempo de processamento": "a 50% reduction in processing time",
+        "em pipelines críticos globais.": "across critical global pipelines.",
+        "plataformas de dados resilientes, governadas e prontas para consumo analítico e agentes de IA": "resilient, governed data platforms ready for analytics and AI agents",
+        "Histórico comprovado de liderança técnica e otimização extrema, incluindo a": "Proven record of technical leadership and extreme optimization, including",
         "Explorar experiência": "Explore my experience",
         "Entrar em contato": "Get in touch",
         "Resumo de resultados": "Results at a glance",
@@ -1703,12 +1780,24 @@
         "menos tempo em pipelines críticos de MarTech": "less processing time for critical MarTech pipelines",
         "países conectados em plataforma global de dados": "countries connected through a global data platform",
         "score de saúde e conformidade do ambiente": "environment health and compliance score",
+        "Destaques": "Highlights",
+        "Projetos & Impactos em Destaque": "Key Projects & Impact",
+        "MarTech Global Scale": "Global MarTech Scale",
+        "AI-Driven Data Infrastructure": "AI-Driven Data Infrastructure",
+        "Redução de 50%": "50% reduction",
+        "no tempo de processamento de pipelines críticos e unificação de dados de consumidores em": "in critical pipeline processing time and consumer data unification across",
+        "mais de 40 países": "more than 40 countries",
+        "Elevação de": "Increase from",
+        "89% para 95%": "89% to 95%",
+        "no score de conformidade e estruturação de dados orientados a agentes de IA.": "in the compliance score, with data structured for AI agents.",
         "01 / Perfil": "01 / Profile",
         "Dados com propósito e escala.": "Data with purpose and scale.",
         "Base técnica sólida, liderança colaborativa e foco em resultados que fazem diferença para o negócio.": "A strong technical foundation, collaborative leadership, and a focus on meaningful business outcomes.",
         "Engenharia ponta a ponta": "End-to-end engineering",
-        "Experiência em projetar, construir e operar ecossistemas de Big Data, da ingestão e arquitetura de pipelines à governança e observabilidade. Atuação em ambientes AWS, Azure, GCP e Databricks.": "Experienced in designing, building, and operating Big Data ecosystems—from ingestion and pipeline architecture to governance and observability—across AWS, Azure, GCP, and Databricks.",
-        "Combinei Engenharia Mecatrônica, Matemática e docência universitária para desenvolver uma abordagem analítica, sistêmica e orientada à resolução de problemas complexos.": "I combine mechatronics engineering, mathematics, and university teaching to bring an analytical, systems-oriented approach to complex problem-solving.",
+        "Especialista em arquitetar, construir e otimizar ecossistemas de Big Data e MarTech em escala global (AWS, Azure, GCP e Databricks). Minha atuação vai além da ingestão e modelagem: estruturo camadas semânticas governadas, métricas confiáveis e bases de conhecimento técnico": "Specialist in architecting, building, and optimizing Big Data and MarTech ecosystems at global scale (AWS, Azure, GCP, and Databricks). My work goes beyond ingestion and modeling: I design governed semantic layers, reliable metrics, and technical knowledge bases",
+        "que aceleram times e alimentam ferramentas de IA com contexto de negócio preciso.": "that accelerate teams and power AI tools with precise business context.",
+        "Single Source of Truth": "Single Source of Truth",
+        "A combinação entre Engenharia Mecatrônica, Matemática (USP/UFSCar) e docência universitária sustenta uma abordagem analítica rigorosa, focada em observabilidade, estabilidade e resolução de problemas complexos.": "The combination of Mechatronics Engineering, Mathematics (USP/UFSCar), and university teaching underpins a rigorous analytical approach focused on observability, stability, and complex problem-solving.",
         "O que levo para o time": "What I bring to a team",
         "Otimização de consultas e pipelines com impacto mensurável.": "Query and pipeline optimization with measurable impact.",
         "Experiência em dados financeiros, CDP e MarTech global.": "Experience across financial data, CDPs, and global MarTech.",
@@ -1752,7 +1841,7 @@
         "Implementação de segmentação baseada em interesses e comportamentos, com gestão de consentimento e conformidade com a LGPD.": "Implemented interest- and behavior-based segmentation with consent management and LGPD compliance.",
         "Redução de 50% no tempo de processamento de pipelines críticos de MarTech por meio de refatoração e otimização de consultas.": "Reduced processing time for critical MarTech pipelines by 50% through code refactoring and query optimization.",
         "Liderança técnica, mentoria da equipe e implantação de PI Planning para melhorar previsibilidade e alinhamento entre stakeholders globais.": "Provided technical leadership and team mentoring, and introduced PI Planning to improve delivery predictability and alignment across global stakeholders.",
-        "Estruturação de documentação e base de conhecimento técnico do CDP no Confluence.": "Built the CDP's technical documentation and knowledge base in Confluence.",
+        "Estruturação e manutenção da base de conhecimento técnico e tutoriais de uso de ferramentas no Confluence, consolidando a \"Single Source of Truth\" do CDP e reduzindo o débito de conhecimento da equipe global.": "Built and maintained the CDP's technical knowledge base and tool tutorials in Confluence, establishing the \"Single Source of Truth\" and reducing knowledge debt across the global team.",
         "Mai 2019": "May 2019",
         "— Set 2021": "— Sep 2021",
         "Engenheiro de Dados Pleno": "Mid-level Data Engineer",
@@ -1812,6 +1901,7 @@
         "significativo com dados.": "meaningful with data.",
         "Disponível para conexões e conversas profissionais.": "Open to professional connections and conversations.",
         "Enviar e-mail": "Email me",
+        "Baixar currículo em PDF": "Download Résumé in PDF",
         "Feito para a web.": "Made for the web.",
         "Voltar ao início ↑": "Back to top ↑"
       };
@@ -1828,6 +1918,20 @@
 
       function setLanguage(language) {
         const isEnglish = language === "en";
+        const profileEngineering = document.getElementById("profile-engineering");
+        if (profileEngineering) {
+          profileEngineering.innerHTML = isEnglish
+            ? 'Specialist in architecting, building, and optimizing Big Data and MarTech ecosystems at global scale (AWS, Azure, GCP, and Databricks). My work goes beyond ingestion and modeling: I design governed semantic layers, reliable metrics, and technical knowledge bases (<em>Single Source of Truth</em>) that accelerate teams and power AI tools with precise business context.'
+            : 'Especialista em arquitetar, construir e otimizar ecossistemas de Big Data e MarTech em escala global (AWS, Azure, GCP e Databricks). Minha atuação vai além da ingestão e modelagem: estruturo camadas semânticas governadas, métricas confiáveis e bases de conhecimento técnico (<em>Single Source of Truth</em>) que aceleram times e alimentam ferramentas de IA com contexto de negócio preciso.';
+        }
+        const resumeDownload = document.getElementById("resume-download");
+        if (resumeDownload) {
+          const pdfFile = isEnglish
+            ? "MarcielGomes_DE_112026_en.pdf"
+            : "MarcielGomes_DE_112026_pt.pdf";
+          resumeDownload.href = `./docs/${pdfFile}`;
+          resumeDownload.download = pdfFile;
+        }
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
         let textNode;
         while ((textNode = walker.nextNode())) {
